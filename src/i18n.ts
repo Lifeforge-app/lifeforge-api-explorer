@@ -18,7 +18,7 @@ i18n
       bindI18n: "languageChanged loaded",
     },
     cleanCode: true,
-    debug: true,
+    debug: false,
     interpolation: {
       escapeValue: false,
     },
