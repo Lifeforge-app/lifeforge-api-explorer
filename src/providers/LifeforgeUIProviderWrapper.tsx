@@ -1,25 +1,25 @@
-import { LifeforgeUIProvider } from "@lifeforge/ui";
+import { LifeforgeUIProvider } from '@lifeforge/ui'
 
-import { usePersonalization } from "./PersonalizationProvider";
+import { usePersonalization } from './PersonalizationProvider'
 
 function LifeforgeUIProviderWrapper({
-  children,
+  children
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const personalization = usePersonalization();
+  const personalization = usePersonalization()
 
   return (
     <LifeforgeUIProvider
       personalization={{
         apiHost: import.meta.env.VITE_API_HOST,
         ...personalization,
-        themeColor: personalization.rawThemeColor,
+        themeColor: personalization.rawThemeColor
       }}
     >
       {children}
     </LifeforgeUIProvider>
-  );
+  )
 }
 
-export default LifeforgeUIProviderWrapper;
+export default LifeforgeUIProviderWrapper
