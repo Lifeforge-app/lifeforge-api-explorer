@@ -1,9 +1,18 @@
-import { useQuery } from '@tanstack/react-query'
+/* eslint-disable @tanstack/query/exhaustive-deps */
+import { UseQueryOptions, useQuery } from '@tanstack/react-query'
 
 import fetchAPI from '../utils/fetchAPI'
 
-function useAPIQuery<T>(endpoint: string, key: unknown[], enabled = true) {
+function useAPIQuery<T>(
+  endpoint: string,
+  key: unknown[],
+  enabled = true,
+  options: Omit<UseQueryOptions<T>, 'queryKey' | 'queryFn'> = {}
+) {
   return useQuery<T>({
+    ...options,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
     queryKey: key,
     queryFn: () => fetchAPI(endpoint),
     enabled

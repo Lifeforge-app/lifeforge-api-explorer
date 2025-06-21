@@ -5,6 +5,7 @@ import _ from 'lodash'
 import React, { Suspense, useEffect, useState } from 'react'
 
 import Header from './components/Header'
+import MainContent from './content'
 import './i18n'
 import LifeforgeUIProviderWrapper from './providers/LifeforgeUIProviderWrapper'
 import PersonalizationProvider from './providers/PersonalizationProvider'
@@ -92,6 +93,8 @@ const LocaleAdmin = (): React.ReactElement => {
 
     if (document.cookie.includes('token')) {
       verifyToken()
+    } else {
+      failAuth()
     }
   }, [])
 
@@ -100,31 +103,31 @@ const LocaleAdmin = (): React.ReactElement => {
       <LifeforgeUIProviderWrapper>
         <main
           id="app"
-          className="bg-bg-200/50 text-bg-800 dark:bg-bg-900/50 dark:text-bg-50 flex min-h-dvh w-full flex-col p-12"
+          className="bg-bg-200/50 text-bg-800 dark:bg-bg-900/50 dark:text-bg-50 flex min-h-dvh w-full flex-col"
         >
           <Suspense fallback={<LoadingScreen />}>
-            <Header />
             {isAuthed ? (
-              <div className="flex-center h-full flex-1 text-4xl font-medium tracking-widest uppercase">
-                Nice
-              </div>
+              <MainContent />
             ) : (
-              <div className="flex h-full w-full flex-1 flex-col items-center justify-center">
-                <Icon icon="tabler:lock-access" className="mb-4 text-9xl" />
-                <h2 className="text-4xl">Unauthorized Personnel</h2>
-                <p className="mt-4 text-center text-lg text-zinc-500">
-                  Please authenticate through single sign-on (SSO) in the system
-                  to access the locale editor.
-                </p>
-                <Button
-                  as="a"
-                  icon="tabler:hammer"
-                  href={import.meta.env.VITE_FRONTEND_URL}
-                  className="mt-16"
-                >
-                  Go to System
-                </Button>
-              </div>
+              <>
+                <Header />
+                <div className="flex h-full w-full flex-1 flex-col items-center justify-center">
+                  <Icon icon="tabler:lock-access" className="mb-4 text-9xl" />
+                  <h2 className="text-4xl">Unauthorized Personnel</h2>
+                  <p className="mt-4 text-center text-lg text-zinc-500">
+                    Please authenticate through single sign-on (SSO) in the
+                    system to access the locale editor.
+                  </p>
+                  <Button
+                    as="a"
+                    icon="tabler:hammer"
+                    href={import.meta.env.VITE_FRONTEND_URL}
+                    className="mt-16"
+                  >
+                    Go to System
+                  </Button>
+                </div>
+              </>
             )}
           </Suspense>
         </main>
